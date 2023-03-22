@@ -1,0 +1,52 @@
+# Execute the below in pyspark shell after fetching the pyspark shell in a terminal
+# Execute the below command one by one.
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+
+# First you have to give some input data as the list of tuple form. So for that, I take Employee Details as input.
+# You have to right this below input manually in the terminal.
+
+Emp_Details = [(101,"Ravi","Kumar","Singh",50000),
+               (102,"Ayush","Kumar","Jaiswal",60000),
+               (103,"Rohit","Pratab","Singh",50000),
+               (104,"Robin","Kumar","Sharma",60000),
+               (105,"Ravikant","Kumar","Singh",50000),
+               (106,"Ayushya","Kumar","Jaiswal",60000),
+               (107,"Rohan","Pratab","Singh",50000),
+               (108,"Rahul","Kumar","Sharma",60000),
+               (109,"Rajeev","Kumar","Singh",50000),
+               (110,"Akash","Kumar","Jaiswal",60000),
+               (111,"Niraj","Pratab","Singh",50000),
+               (112,"Rounak","Kumar","Sharma",60000),
+               (113,"Ranveer","Kumar","Singh",50000),
+               (114,"Ayushya","Kumar","Roy",64000),
+               (115,"Ekkta","Pratab","Singh",55000),
+               (116,"Rohan","Kumar","Sharma",65000),
+               (117,"Rabina","Kumari","Singh",40000),
+               (118,"Ayushi","Kumari","Jaiswal",70000),
+               (119,"Rituraj","Pratab","Singh",50000),
+               (120,"Raunak","Kumar","Sharma",80000)]
+               
+ # Next you have to define the schema for the above input. As you can see there are five(5) Columns in input data and these have different data type
+ 
+ Schema = StructType([
+                    StructField("Emp_ID",IntegerType,True),
+                    StructField("Emp_F_Name",StringType,True),
+                    StructField("Emp_M_Name",StringType,True),
+                    StructField("Emp_L_Name",StringType,True),
+                    StructField("Salary",IntegerType,True)])
+                    
+  # Now you have to create the data frame and pass the two arguments in it.
+   
+  df = spark.createDataFrame(data=Emp_D,schema=Schema)
+  
+  # Now It's time to explore the data using PySpark SQL Command. As I use some of the important commands to explain.
+  
+  df.show() # This command will display the whole DataFrame(table).
+  
+  df.show(5) # This command will work same as the above but here I put the limit to show method to just shoew the 5 Rows From the DataFrame as we do in SQL Query or panadas
+  
+  df.select("*").where("Salary = 50000").show() # This will show the rows where the employee salary is equal to 50000.
+  
+  df.select("Emp_ID","Emp_F_Name","Salary").show() # This will show only 3 Columns which is specified in select method.
+  
+  df.printSchema() # This will show you the Schema of the DataFrame 
