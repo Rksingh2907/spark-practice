@@ -1,0 +1,23 @@
+#My actual data in which I am going to perform is kept in local file system. So, here we simply upload are data into workspace of iNeuron Lab.
+#And from there I upload this same data to HDFS. 
+#I mentioned the steps which is used to do so.
+
+#Step 1:-  Navigate to the file which you want to upload and simply drag and drop into ineuron lab work space.
+#step 2:-  Upload this data from workspace to the HDFS, for that write the below command in terminal. 
+    # 2.1 First you have to create one directory.
+     >>> hadoop fs -mkdir /HadoopNewFile
+     or
+     >>> hdfs dfs -mkdir /HadoopNewFile
+    # 2.2 To confirm whether the directory is created or not, write the below command
+     >>> hadoop fs -ls /
+     or 
+     >>> hdfs dfs -ls /
+    # 2.3 Now it time to upload the data file into HDFS
+     >>> hadoop fs -put <workspace-path> /<HDFS-path>
+     or
+     >>>hdfs dfs -put <workspace-path> /<HDFS-path>
+     
+     #In my case, Example:
+      >>> hdfs dfs -put Flat_Data.csv /HadoopNewFile
+     
+
