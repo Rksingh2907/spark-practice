@@ -1,4 +1,4 @@
-#My actual data in which I am going to perform is kept in local file system. So, here we simply upload are data into workspace of iNeuron Lab.
+#The actual data in which I am going to perform some operations is kept in local file system. So, here we simply upload our data into workspace of iNeuron Lab.
 #And from there I upload this same data to HDFS. 
 #I mentioned the steps which is used to do so.
 
