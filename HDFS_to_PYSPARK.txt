@@ -120,4 +120,59 @@ only showing top 10 rows
 +---------+-------------+--------------------+------------------+---------+--------+
 only showing top 10 rows
 
+# Create temporary view and write SQL like query in the Pyspark
+>>> df.createOrReplaceTempView("TAB")
+>>> spark.sql("SELECT DISTINCT * FROM TAB").show()
++---------+-------------+--------------------+------------------+---------+--------+
+|UniqueID |      LandUse|     PropertyAddress|          SaleDate|SalePrice|Bedrooms|
++---------+-------------+--------------------+------------------+---------+--------+
+|     2045|SINGLE FAMILY|1808  FOX CHASE D...|     April 9, 2013|   240000|       3|
+|    16918|SINGLE FAMILY|1832  FOX CHASE D...|     June 10, 2014|   366000|       3|
+|    54582|SINGLE FAMILY|1864 FOX CHASE  D...|September 26, 2016|   435000|       4|
+|    43070|SINGLE FAMILY|1853  FOX CHASE D...|  January 29, 2016|   255000|       3|
+|    22714|SINGLE FAMILY|1829  FOX CHASE D...|  October 10, 2014|   278000|       4|
+|    18367|SINGLE FAMILY|1821  FOX CHASE D...|     July 16, 2014|   267000|       3|
+|    19804|SINGLE FAMILY|2005  SADIE LN, G...|   August 28, 2014|   171000|       3|
+|    54583|SINGLE FAMILY|1917 GRACELAND  D...|September 27, 2016|   262000|       3|
+|    36500|SINGLE FAMILY|1428  SPRINGFIELD...|   August 14, 2015|   285000|       3|
+|    19805|SINGLE FAMILY|1420  SPRINGFIELD...|   August 29, 2014|   340000|       5|
++---------+-------------+--------------------+------------------+---------+--------+
+only showing top 10 rows
+>>> spark.sql("SELECT LandUse, SaleDate, Bedrooms FROM TAB").show(10)
++-------------+------------------+--------+
+|      LandUse|          SaleDate|Bedrooms|
++-------------+------------------+--------+
+|SINGLE FAMILY|     April 9, 2013|       3|
+|SINGLE FAMILY|     June 10, 2014|       3|
+|SINGLE FAMILY|September 26, 2016|       4|
+|SINGLE FAMILY|  January 29, 2016|       3|
+|SINGLE FAMILY|  October 10, 2014|       4|
+|SINGLE FAMILY|     July 16, 2014|       3|
+|SINGLE FAMILY|   August 28, 2014|       3|
+|SINGLE FAMILY|September 27, 2016|       3|
+|SINGLE FAMILY|   August 14, 2015|       3|
+|SINGLE FAMILY|   August 29, 2014|       5|
++-------------+------------------+--------+
+only showing top 10 rows
 
+>>> spark.sql("Select Distinct Bedrooms From TAB").show(10)
++--------+                                                                      
+|Bedrooms|
++--------+
+|    null|
+|       1|
+|       6|
+|       3|
+|       5|
+|       9|
+|       4|
+|       8|
+|       7|
+|      10|
++--------+
+only showing top 10 rows
+
+>>> spark.sql("SELECT Distinct Bedrooms From TAB").count()
+13
+
+#In the similar way we can also perform more operations over the Data.
