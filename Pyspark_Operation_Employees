@@ -1,0 +1,164 @@
+>>> df = spark.read.option("header",True).option("inferSchema",True).csv("/HadoopFile/employees.csv")
+>>> df.show(5)                                                                  
++-----------+----------+---------+--------+------------+---------+--------+------+--------------+----------+-------------+
+|EMPLOYEE_ID|FIRST_NAME|LAST_NAME|   EMAIL|PHONE_NUMBER|HIRE_DATE|  JOB_ID|SALARY|COMMISSION_PCT|MANAGER_ID|DEPARTMENT_ID|
++-----------+----------+---------+--------+------------+---------+--------+------+--------------+----------+-------------+
+|        198|    Donald| OConnell|DOCONNEL|650.507.9833|21-Jun-07|SH_CLERK|  2600|            - |       124|           50|
+|        199|   Douglas|    Grant|  DGRANT|650.507.9844|13-Jan-08|SH_CLERK|  2600|            - |       124|           50|
+|        200|  Jennifer|   Whalen| JWHALEN|515.123.4444|17-Sep-03| AD_ASST|  4400|            - |       101|           10|
+|        201|   Michael|Hartstein|MHARTSTE|515.123.5555|17-Feb-04|  MK_MAN| 13000|            - |       100|           20|
+|        202|       Pat|      Fay|    PFAY|603.123.6666|17-Aug-05|  MK_REP|  6000|            - |       201|           20|
++-----------+----------+---------+--------+------------+---------+--------+------+--------------+----------+-------------+
+only showing top 5 rows
+
+>>> df.printSchema()
+root
+ |-- EMPLOYEE_ID: integer (nullable = true)
+ |-- FIRST_NAME: string (nullable = true)
+ |-- LAST_NAME: string (nullable = true)
+ |-- EMAIL: string (nullable = true)
+ |-- PHONE_NUMBER: string (nullable = true)
+ |-- HIRE_DATE: string (nullable = true)
+ |-- JOB_ID: string (nullable = true)
+ |-- SALARY: integer (nullable = true)
+ |-- COMMISSION_PCT: string (nullable = true)
+ |-- MANAGER_ID: string (nullable = true)
+ |-- DEPARTMENT_ID: integer (nullable = true)
+
+>>> df.select("EMPLOYEE_ID","FIRST_NAME").show()
++-----------+----------+
+|EMPLOYEE_ID|FIRST_NAME|
++-----------+----------+
+|        198|    Donald|
+|        199|   Douglas|
+|        200|  Jennifer|
+|        201|   Michael|
+|        202|       Pat|
+|        203|     Susan|
+|        204|   Hermann|
+|        205|   Shelley|
+|        206|   William|
+|        100|    Steven|
+|        101|     Neena|
+|        102|       Lex|
+|        103| Alexander|
+|        104|     Bruce|
+|        105|     David|
+|        106|     Valli|
+|        107|     Diana|
+|        108|     Nancy|
+|        109|    Daniel|
+|        110|      John|
++-----------+----------+
+only showing top 20 rows
+
+>>> df.select(df.EMPLOYEE_ID,df.FIRST_NAME).show()
++-----------+----------+
+|EMPLOYEE_ID|FIRST_NAME|
++-----------+----------+
+|        198|    Donald|
+|        199|   Douglas|
+|        200|  Jennifer|
+|        201|   Michael|
+|        202|       Pat|
+|        203|     Susan|
+|        204|   Hermann|
+|        205|   Shelley|
+|        206|   William|
+|        100|    Steven|
+|        101|     Neena|
+|        102|       Lex|
+|        103| Alexander|
+|        104|     Bruce|
+|        105|     David|
+|        106|     Valli|
+|        107|     Diana|
+|        108|     Nancy|
+|        109|    Daniel|
+|        110|      John|
++-----------+----------+
+only showing top 20 rows
+
+>>> df.select(df["EMPLOYEE_ID"],df["FIRST_NAME"]).show()
++-----------+----------+
+|EMPLOYEE_ID|FIRST_NAME|
++-----------+----------+
+|        198|    Donald|
+|        199|   Douglas|
+|        200|  Jennifer|
+|        201|   Michael|
+|        202|       Pat|
+|        203|     Susan|
+|        204|   Hermann|
+|        205|   Shelley|
+|        206|   William|
+|        100|    Steven|
+|        101|     Neena|
+|        102|       Lex|
+|        103| Alexander|
+|        104|     Bruce|
+|        105|     David|
+|        106|     Valli|
+|        107|     Diana|
+|        108|     Nancy|
+|        109|    Daniel|
+|        110|      John|
++-----------+----------+
+only showing top 20 rows
+
+
+>>> from pyspark.sql.functions import col
+
+>>> df.select(col("EMPLOYEE_ID"),col("FIRST_NAME")).show()
++-----------+----------+
+|EMPLOYEE_ID|FIRST_NAME|
++-----------+----------+
+|        198|    Donald|
+|        199|   Douglas|
+|        200|  Jennifer|
+|        201|   Michael|
+|        202|       Pat|
+|        203|     Susan|
+|        204|   Hermann|
+|        205|   Shelley|
+|        206|   William|
+|        100|    Steven|
+|        101|     Neena|
+|        102|       Lex|
+|        103| Alexander|
+|        104|     Bruce|
+|        105|     David|
+|        106|     Valli|
+|        107|     Diana|
+|        108|     Nancy|
+|        109|    Daniel|
+|        110|      John|
++-----------+----------+
+only showing top 20 rows
+
+>>> df.select(col("EMPLOYEE_ID").alias("Emp_Id"),col("FIRST_NAME").alias("F_Name")).show()
++------+---------+
+|Emp_Id|   F_Name|
++------+---------+
+|   198|   Donald|
+|   199|  Douglas|
+|   200| Jennifer|
+|   201|  Michael|
+|   202|      Pat|
+|   203|    Susan|
+|   204|  Hermann|
+|   205|  Shelley|
+|   206|  William|
+|   100|   Steven|
+|   101|    Neena|
+|   102|      Lex|
+|   103|Alexander|
+|   104|    Bruce|
+|   105|    David|
+|   106|    Valli|
+|   107|    Diana|
+|   108|    Nancy|
+|   109|   Daniel|
+|   110|     John|
++------+---------+
+only showing top 20 rows
