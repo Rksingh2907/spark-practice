@@ -78,4 +78,46 @@ only showing top 5 rows
 +---------+-------------+--------------------+------------------+---------+--------+
 only showing top 10 rows
 
->>>
+# we can also specify the columns inside the select function.
+>>> df.select("LandUse","SaleDate","SalePrice").show()
+
++-------------+------------------+---------+
+|      LandUse|          SaleDate|SalePrice|
++-------------+------------------+---------+
+|SINGLE FAMILY|     April 9, 2013|   240000|
+|SINGLE FAMILY|     June 10, 2014|   366000|
+|SINGLE FAMILY|September 26, 2016|   435000|
+|SINGLE FAMILY|  January 29, 2016|   255000|
+|SINGLE FAMILY|  October 10, 2014|   278000|
+|SINGLE FAMILY|     July 16, 2014|   267000|
+|SINGLE FAMILY|   August 28, 2014|   171000|
+|SINGLE FAMILY|September 27, 2016|   262000|
+|SINGLE FAMILY|   August 14, 2015|   285000|
+|SINGLE FAMILY|   August 29, 2014|   340000|
++-------------+------------------+---------+
+only showing top 10 rows
+
+# we can also see the no. of rows in the data
+>>> df.count()
+56480
+
+# we can also filter our data using where function as in the SQL we use WHERE Clause.
+
+>>> df.select("*").where("Bedrooms = 3").show(10)
++---------+-------------+--------------------+------------------+---------+--------+
+|UniqueID |      LandUse|     PropertyAddress|          SaleDate|SalePrice|Bedrooms|
++---------+-------------+--------------------+------------------+---------+--------+
+|     2045|SINGLE FAMILY|1808  FOX CHASE D...|     April 9, 2013|   240000|       3|
+|    16918|SINGLE FAMILY|1832  FOX CHASE D...|     June 10, 2014|   366000|       3|
+|    43070|SINGLE FAMILY|1853  FOX CHASE D...|  January 29, 2016|   255000|       3|
+|    18367|SINGLE FAMILY|1821  FOX CHASE D...|     July 16, 2014|   267000|       3|
+|    19804|SINGLE FAMILY|2005  SADIE LN, G...|   August 28, 2014|   171000|       3|
+|    54583|SINGLE FAMILY|1917 GRACELAND  D...|September 27, 2016|   262000|       3|
+|    36500|SINGLE FAMILY|1428  SPRINGFIELD...|   August 14, 2015|   285000|       3|
+|    16920|SINGLE FAMILY|637  GAYLEMORE DR...|     June 30, 2014|   247400|       3|
+|    28155|SINGLE FAMILY|644  GAYLEMORE DR...|    March 31, 2015|   185900|       3|
+|     8899|SINGLE FAMILY|1921  NORMERLE DR...|  October 11, 2013|   349900|       3|
++---------+-------------+--------------------+------------------+---------+--------+
+only showing top 10 rows
+
+
