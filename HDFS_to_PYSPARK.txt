@@ -20,4 +20,62 @@
      #In my case, Example:
       >>> hdfs dfs -put Flat_Data.csv /HadoopNewFile
      
+#Now, it's time to perform some operations on the data. For that first you have to lunch new terminal in the same workspace of Neuro Lab.
+#and then write the below in the terminal.
+>>> pyspark 
 
+#you will see the below result after pressing the enter⤴️ buttom 
+
+Python 3.9.13 (main, Oct 13 2022, 21:15:33) 
+[GCC 11.2.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+23/03/26 13:12:06 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 3.2.1
+      /_/
+
+Using Python version 3.9.13 (main, Oct 13 2022 21:15:33)
+Spark context Web UI available at http://40f1a1d4b7dd:4040
+Spark context available as 'sc' (master = local[*], app id = local-1679816529162).
+SparkSession available as 'spark'.
+
+#Read the data from the HDFS 
+>>> df = spark.read.option("header",True).option("inferSchema",True).csv("/HadoopFile/Flat_Data.csv")
+>>> df.show(5) # Here I limit the no.of row by specifying the 5 rows from the top.
++---------+-------------+--------------------+------------------+---------+--------+
+|UniqueID |      LandUse|     PropertyAddress|          SaleDate|SalePrice|Bedrooms|
++---------+-------------+--------------------+------------------+---------+--------+
+|     2045|SINGLE FAMILY|1808  FOX CHASE D...|     April 9, 2013|   240000|       3|
+|    16918|SINGLE FAMILY|1832  FOX CHASE D...|     June 10, 2014|   366000|       3|
+|    54582|SINGLE FAMILY|1864 FOX CHASE  D...|September 26, 2016|   435000|       4|
+|    43070|SINGLE FAMILY|1853  FOX CHASE D...|  January 29, 2016|   255000|       3|
+|    22714|SINGLE FAMILY|1829  FOX CHASE D...|  October 10, 2014|   278000|       4|
++---------+-------------+--------------------+------------------+---------+--------+
+only showing top 5 rows
+
+# Now it's time to get your hand dirty by performing some operations as below.
+
+>>> df.select("*").show()
+
++---------+-------------+--------------------+------------------+---------+--------+
+|UniqueID |      LandUse|     PropertyAddress|          SaleDate|SalePrice|Bedrooms|
++---------+-------------+--------------------+------------------+---------+--------+
+|     2045|SINGLE FAMILY|1808  FOX CHASE D...|     April 9, 2013|   240000|       3|
+|    16918|SINGLE FAMILY|1832  FOX CHASE D...|     June 10, 2014|   366000|       3|
+|    54582|SINGLE FAMILY|1864 FOX CHASE  D...|September 26, 2016|   435000|       4|
+|    43070|SINGLE FAMILY|1853  FOX CHASE D...|  January 29, 2016|   255000|       3|
+|    22714|SINGLE FAMILY|1829  FOX CHASE D...|  October 10, 2014|   278000|       4|
+|    18367|SINGLE FAMILY|1821  FOX CHASE D...|     July 16, 2014|   267000|       3|
+|    19804|SINGLE FAMILY|2005  SADIE LN, G...|   August 28, 2014|   171000|       3|
+|    54583|SINGLE FAMILY|1917 GRACELAND  D...|September 27, 2016|   262000|       3|
+|    36500|SINGLE FAMILY|1428  SPRINGFIELD...|   August 14, 2015|   285000|       3|
+|    19805|SINGLE FAMILY|1420  SPRINGFIELD...|   August 29, 2014|   340000|       5|
++---------+-------------+--------------------+------------------+---------+--------+
+only showing top 10 rows
+
+>>>
